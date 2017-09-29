@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 from tendo import singleton
 import os
 
