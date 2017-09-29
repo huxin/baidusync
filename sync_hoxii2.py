@@ -3,7 +3,7 @@ from tendo import singleton
 import os
 import time
 
-# this should be run every 15 minutes
+# 0,20,40 * * * * python /root/baidusync/sync_hoxii2.py
 
 me = singleton.SingleInstance()
 
