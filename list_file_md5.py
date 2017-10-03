@@ -28,8 +28,11 @@ if __name__ == "__main__":
     file2md5 = get_file_md5(root_dir)
 
     basename = os.path.basename(root_dir)
-    if basename == '.':
+    if basename == '.' or basename == '':
         basename = 'files'
+
+    md5_file = basename + '.md5'
+    print "Output:", md5_file
 
     with open(basename + '.md5', 'w') as outf:
         for f, md5 in file2md5.items():
