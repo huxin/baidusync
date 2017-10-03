@@ -31,7 +31,7 @@ if __name__ == "__main__":
     if basename == '.':
         basename = 'files'
 
-    with open(basename + '.md5') as outf:
+    with open(basename + '.md5', 'w') as outf:
         for f, md5 in file2md5.items():
             print >> outf, md5, f
 
