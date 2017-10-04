@@ -21,15 +21,25 @@ def port_open(ip, port):
     result = sock.connect_ex((ip, port))
     return result==0
 
+
+def santize(s):
+    n = ''
+    for c in s:
+        if ord(c) < 128:
+            n += c
+    return n
+
 def curl_ip(ip):
     try:
         if not port_open(ip, 80):
             return [ip, 'port 80 not open']
         output = subprocess.check_output(['curl', '-s', 'http://'+ip])
+        output = santize(output)
     except Exception as e:
         return json.dumps([ip, e.message])
 
     return json.dumps( [ip, output.replace("\n", " ").replace("/r", '')])
+
 
 
 
