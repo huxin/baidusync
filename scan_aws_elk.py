@@ -29,7 +29,7 @@ def curl_ip(ip):
     except Exception as e:
         return json.dumps([ip, e.message])
 
-    return json.dumps([ip, json.loads(output)])
+    return json.dumps( [ip, output.replace("\n", " ").replace("/r", '')])
 
 
 
