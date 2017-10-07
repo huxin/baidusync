@@ -46,7 +46,7 @@ def curl_ip(ip):
 def scan_ips(ip_set, outfname):
     start_t = time.time()
     pool = Pool(processes=max_proc)
-    with open(outfname, 'w') as outf:
+    with open(outfname, 'a') as outf:
         for i in pool.imap_unordered(curl_ip, list(ip_set)):
             print int(time.time()-start_t), i
             print >>outf, int(time.time()-start_t), i
@@ -67,9 +67,23 @@ for p in open(sys.argv[1]):
 print "Found total:", len(ip_list), "IPs, start scanning:"
 import random
 
+res_file = sys.argv[1]+'.scan.res'
+
+scanned_ip_set = set()
+for l in open(res_file, 'r'):
+    p = l.split("'")
+    ip =p[1]
+    scanned_ip_set.add(ip)
+
+print "Total IP #:", len(ip_list)
+print "scanned ip #:", len(scanned_ip_set)
+print "remaining: #", set(ip_list) - scanned_ip_set
+exit(1)
+
+
 
 random.shuffle(ip_list)
-scan_ips(ip_list, sys.argv[1]+'.scan.res')
+scan_ips(ip_list, res_file)
 
 
 #scan_ips(set(['52.200.189.78', '52.200.189.77', '34.225.47.67', '34.203.109.236', '52.54.211.81']))
