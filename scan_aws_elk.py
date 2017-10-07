@@ -80,12 +80,12 @@ for l in open(res_file, 'r'):
 print "Total IP #:", len(ip_list)
 print "scanned ip #:", len(scanned_ip_set)
 print "remaining: #", len(set(ip_list) - scanned_ip_set)
-exit(1)
+remain = list(set(ip_list) - scanned_ip_set)
 
 
 
-random.shuffle(ip_list)
-scan_ips(ip_list, res_file)
+random.shuffle(remain)
+scan_ips(remain, res_file)
 
 
 #scan_ips(set(['52.200.189.78', '52.200.189.77', '34.225.47.67', '34.203.109.236', '52.54.211.81']))
