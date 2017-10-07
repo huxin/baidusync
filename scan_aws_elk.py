@@ -2,7 +2,7 @@
 
 import os
 import sys
-import subprocess
+import subprocess32
 import json
 from multiprocessing import Pool, TimeoutError
 import time
@@ -33,7 +33,7 @@ def curl_ip(ip):
     try:
         if not port_open(ip, 80):
             return [ip, 'port 80 not open']
-        output = subprocess.check_output(['curl', '-s', 'http://'+ip])
+        output = subprocess32.check_output(['curl', '-s', 'http://'+ip], timeout=4)
         output = santize(output)
     except Exception as e:
         return json.dumps([ip, e.message])
