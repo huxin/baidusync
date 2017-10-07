@@ -79,7 +79,7 @@ for l in open(res_file, 'r'):
 
 print "Total IP #:", len(ip_list)
 print "scanned ip #:", len(scanned_ip_set)
-print "remaining: #", set(ip_list) - scanned_ip_set
+print "remaining: #", len(set(ip_list) - scanned_ip_set)
 exit(1)
 
 
