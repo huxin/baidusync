@@ -72,6 +72,8 @@ res_file = sys.argv[1]+'.scan.res'
 scanned_ip_set = set()
 for l in open(res_file, 'r'):
     p = l.split("'")
+    if len(p) < 2:
+        continue
     ip =p[1]
     scanned_ip_set.add(ip)
 
