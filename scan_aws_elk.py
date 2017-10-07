@@ -12,6 +12,7 @@ import ipaddress
 # https://ip-ranges.amazonaws.com/ip-ranges.json
 
 port_open_timeout = 0.2
+curl_cmd_timeout = 4
 max_proc = 20
 
 def port_open(ip, port):
@@ -33,7 +34,7 @@ def curl_ip(ip):
     try:
         if not port_open(ip, 80):
             return [ip, 'port 80 not open']
-        output = subprocess32.check_output(['curl', '-s', 'http://'+ip], timeout=4)
+        output = subprocess32.check_output(['curl', '-s', 'http://'+ip], timeout=curl_cmd_timeout)
         output = santize(output)
     except Exception as e:
         return json.dumps([ip, e.message])
