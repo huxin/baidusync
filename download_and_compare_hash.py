@@ -7,7 +7,7 @@ import os
 import sys
 import subprocess
 
-if len(sys.argv != 3):
+if len(sys.argv) != 3:
     print "Usage:", sys.argv[0], "<local dir> <remote dir>"
     exit(1)
 
