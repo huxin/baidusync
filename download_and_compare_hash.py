@@ -38,8 +38,8 @@ with open(compare_res_file, 'w') as res_file:
             local_full_path = os.path.join(root, f)
             remote_full_path = local_full_path.replace(local_dir, remote_dir)
             file_size = os.path.getsize(local_full_path)
-            if file_size > 1000000:
-                continue
+            # if file_size > 1000000:
+            #     continue
 
             # download file
             print "\ndownloading:", remote_full_path
