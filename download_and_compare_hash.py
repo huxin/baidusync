@@ -16,6 +16,19 @@ if len(sys.argv) != 3:
     print "Usage:", sys.argv[0], "<local dir> <remote dir>"
     exit(1)
 
+def load_history():
+    history = set()
+    for f in os.listdir('.'):
+        if f.startswith('compare_result_'):
+            print "Parsing result file:", f
+            for l in  open(f, 'r'):
+                p = l.strip().split()
+                local_file = p[-1]
+                history.add(local_file)
+    return history
+
+
+
 def md5(fname):
     hash_md5 = hashlib.md5()
     with open(fname, "rb") as f:
@@ -26,6 +39,10 @@ def md5(fname):
 local_dir = sys.argv[1]
 remote_dir = sys.argv[2]
 tmp_download_file = 'tmp/download_file'
+
+history = load_history()
+print "already parsed:", len(history)
+exit(1)
 
 if os.path.exists(tmp_download_file):
     os.unlink(tmp_download_file)
