@@ -68,7 +68,7 @@ with open(compare_res_file, 'w') as res_file:
             print "\ndownloading:", remote_full_path
             cmd = ['bypy',  '-v',  '--select-fastest-mirror', '--downloader', 'aria2', 'downfile', remote_full_path, tmp_download_file]
             try:
-                subprocess32.check_output(cmd, timeout=)
+                subprocess32.check_output(cmd, timeout=6*3600)
             except Exception as e:
                 print "Download", remote_full_path, "failure", str(e)
                 print >>res_file, '-1', local_full_path, remote_full_path
