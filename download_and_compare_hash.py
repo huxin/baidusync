@@ -8,6 +8,9 @@ import sys
 import subprocess
 import time
 import hashlib
+import urllib3
+
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 if len(sys.argv) != 3:
     print "Usage:", sys.argv[0], "<local dir> <remote dir>"
@@ -39,7 +42,7 @@ with open(compare_res_file, 'w') as res_file:
                 continue
 
             # download file
-            print "downloading:", remote_full_path
+            print "\ndownloading:", remote_full_path
             cmd = ['bypy',  '-v',  '--select-fastest-mirror', '--downloader', 'aria2', 'downfile', remote_full_path, tmp_download_file]
             subprocess.check_output(cmd)
 
