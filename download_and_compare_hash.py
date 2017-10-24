@@ -5,7 +5,7 @@
 
 import os
 import sys
-import subprocess
+import subprocess32
 import time
 import hashlib
 import urllib3
@@ -23,6 +23,8 @@ def load_history():
             print "Parsing result file:", f
             for l in  open(f, 'r'):
                 p = l.strip().split()
+                if len(p) == 0 or p[0] == -1:
+                    continue
                 local_file = p[-1]
                 history.add(local_file)
     return history
@@ -41,8 +43,8 @@ remote_dir = sys.argv[2]
 tmp_download_file = 'tmp/download_file'
 
 history = load_history()
-print "already parsed:", len(history)
-exit(1)
+print "already compared:", len(history), 'files'
+
 
 if os.path.exists(tmp_download_file):
     os.unlink(tmp_download_file)
@@ -55,13 +57,22 @@ with open(compare_res_file, 'w') as res_file:
             local_full_path = os.path.join(root, f)
             remote_full_path = local_full_path.replace(local_dir, remote_dir)
             file_size = os.path.getsize(local_full_path)
+
+            if local_full_path in history:
+                print "Skip already parsed:", local_full_path
+                continue
             # if file_size > 1000000:
             #     continue
 
             # download file
             print "\ndownloading:", remote_full_path
             cmd = ['bypy',  '-v',  '--select-fastest-mirror', '--downloader', 'aria2', 'downfile', remote_full_path, tmp_download_file]
-            subprocess.check_output(cmd)
+            try:
+                subprocess32.check_output(cmd, timeout=)
+            except Exception as e:
+                print "Download", remote_full_path, "failure", str(e)
+                print >>res_file, '-1', local_full_path, remote_full_path
+                continue
 
             # compute md5sum
             down_file_md5 = md5(tmp_download_file)
