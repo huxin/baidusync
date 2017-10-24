@@ -16,5 +16,7 @@ remote_dir = sys.argv[2]
 
 for root, dirs, files in os.walk(local_dir):
     for f in files:
-        print root, f
+        local_full_path = os.path.join(root, f)
+        remote_full_path = local_full_path.replace(local_dir, remote_dir)
+        print local_full_path, remote_full_path
 
