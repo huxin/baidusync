@@ -39,8 +39,9 @@ with open(compare_res_file, 'w') as res_file:
                 continue
 
             # download file
+            print "downloading:", remote_full_path
             cmd = ['bypy',  '-v',  '--select-fastest-mirror', '--downloader', 'aria2', 'downfile', remote_full_path, tmp_download_file]
-            subprocess.check_output()
+            subprocess.check_output(cmd)
 
             # compute md5sum
             down_file_md5 = md5(tmp_download_file)
@@ -51,7 +52,7 @@ with open(compare_res_file, 'w') as res_file:
                 same = 1
 
             print >> res_file, same, down_file_md5, remote_full_path, local_file_md5, local_full_path
-            print  same, down_file_md5, remote_full_path, local_file_md5, local_full_path
+            print same, down_file_md5, remote_full_path, local_file_md5, local_full_path
 
             if os.path.exists(tmp_download_file):
                 os.unlink(tmp_download_file)
