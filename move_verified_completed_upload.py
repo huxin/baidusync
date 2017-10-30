@@ -19,6 +19,10 @@ with open(sys.argv[1], 'r') as complete_file:
             print "Error line format:", l
             continue
         equal, md5, remote_path, local_md5, local_path = parts
+        if os.path.exists(local_path) == False:
+            print "Skip non-existent:", local_path
+            continue
+
         if local_path.startswith(base_dir) == False:
             print "FATAL, localpath: ", local_path, 'not start with:', base_dir
             exit(1)
