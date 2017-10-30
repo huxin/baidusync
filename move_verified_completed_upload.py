@@ -34,4 +34,5 @@ with open(sys.argv[1], 'r') as complete_file:
         new_dir = new_full_path.replace(filename, '')
         if os.path.exists(new_dir) == False:
             # create new_dir
-            pass
+            print "Creating:", new_dir
+            os.makedirs(new_dir)
