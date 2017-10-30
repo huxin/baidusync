@@ -29,10 +29,12 @@ with open(sys.argv[1], 'r') as complete_file:
         # once we verified that they are the same, we move them to new location
         # 1. replace base_dir with the new destination dir
         new_full_path = os.path.join(dst_dir, local_path.replace(base_dir, ''))
-        print "move", local_path, "to", new_full_path
         filename = os.path.basename(new_full_path)
         new_dir = new_full_path.replace(filename, '')
         if os.path.exists(new_dir) == False:
             # create new_dir
             print "Creating:", new_dir
             os.makedirs(new_dir)
+
+        print "move", local_path, "to", new_full_path
+        shutil.move(local_path, new_full_path)
